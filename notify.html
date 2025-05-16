@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notify Doctor</title>
+</head>
+<body>
+    <h2>Notify Doctor</h2>
+    <form method="post" action="RECEPTION">
+        <!-- Important: action parameter tells servlet what to do -->
+        <input type="hidden" name="action" value="notify">
+        
+        Patient Name:<br>
+        <input type="text" name="name" required><br><br>
+        
+        Doctor Name:<br>
+        <input type="text" name="doctor" required><br><br>
+        
+        Message:<br>
+        <input type="text" name="message" required><br><br>
+        
+        <input type="submit" value="Send Notification">
+    </form>
+    <br>
+    <a href="index.html">Back to Home</a>
+</body>
+</html>
+
