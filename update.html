@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Patient Record</title>
+</head>
+<body>
+    <h2>Update Patient Record</h2>
+    <form method="post" action="RECEPTION">
+        <!-- Important: action parameter tells servlet what to do -->
+        <input type="hidden" name="action" value="update">
+        
+        Patient Name to Update:<br>
+        <input type="text" name="name" required><br><br>
+        
+        New Age:<br>
+        <input type="text" name="age" required><br><br>
+        
+        New Contact:<br>
+        <input type="text" name="contact" required><br><br>
+        
+        <input type="submit" value="Update Record">
+    </form>
+    <br>
+    <a href="index.html">Back to Home</a>
+</body>
+</html>
