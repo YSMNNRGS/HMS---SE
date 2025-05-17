@@ -1,0 +1,102 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class PrescribeMedicine extends JFrame {
+
+    private JTextField patientField, doctorField, dateField;
+    private JTextArea medicineArea, outputArea;
+    private JButton saveButton, clearButton;
+
+    public PrescribeMedicine() {
+        setTitle("Prescribe Medicine");
+        setSize(500, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // Title
+        JLabel titleLabel = new JLabel("Prescribe Medicine", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new GridLayout(6, 1, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+
+        patientField = new JTextField();
+        doctorField = new JTextField();
+        dateField = new JTextField(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+        medicineArea = new JTextArea(5, 20);
+        medicineArea.setLineWrap(true);
+        medicineArea.setWrapStyleWord(true);
+
+        inputPanel.add(new JLabel("Patient Name:"));
+        inputPanel.add(patientField);
+        inputPanel.add(new JLabel("Doctor Name:"));
+        inputPanel.add(doctorField);
+        inputPanel.add(new JLabel("Date (yyyy-mm-dd):"));
+        inputPanel.add(dateField);
+        inputPanel.add(new JLabel("Prescribed Medicines:"));
+        inputPanel.add(new JScrollPane(medicineArea));
+
+        add(inputPanel, BorderLayout.CENTER);
+
+        // Button Panel
+        JPanel buttonPanel = new JPanel();
+        saveButton = new JButton("Save Prescription");
+        clearButton = new JButton("Clear");
+
+        buttonPanel.add(saveButton);
+        buttonPanel.add(clearButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Output area (optional display)
+        outputArea = new JTextArea(5, 40);
+        outputArea.setEditable(false);
+        add(new JScrollPane(outputArea), BorderLayout.EAST);
+
+        // Button Actions
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String patient = patientField.getText();
+                String doctor = doctorField.getText();
+                String date = dateField.getText();
+                String medicines = medicineArea.getText();
+
+                if (patient.isEmpty() || doctor.isEmpty() || medicines.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                String result = "Prescription saved:\n"
+                        + "Patient: " + patient + "\n"
+                        + "Doctor: " + doctor + "\n"
+                        + "Date: " + date + "\n"
+                        + "Medicines:\n" + medicines + "\n\n";
+
+                outputArea.setText(result);
+                JOptionPane.showMessageDialog(null, "Prescription saved successfully!");
+            }
+        });
+
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                patientField.setText("");
+                doctorField.setText("");
+                dateField.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                medicineArea.setText("");
+                outputArea.setText("");
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new PrescribeMedicine();
+    }
+}
