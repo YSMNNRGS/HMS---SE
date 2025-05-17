@@ -1,0 +1,85 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class ViewMedicalReports extends JFrame {
+    JTable reportTable;
+    JButton backButton;
+
+    public ViewMedicalReports(ArrayList<MedicalReport> reports) {
+        setTitle("View Medical Reports");
+        setSize(700, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // Title
+        JLabel titleLabel = new JLabel("Medical Reports", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Table setup
+        String[] columns = {"Report ID", "Patient Name", "Report Type", "Date", "Doctor Name"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+
+        for (MedicalReport report : reports) {
+            model.addRow(new Object[]{
+                report.getReportId(),
+                report.getPatientName(),
+                report.getReportType(),
+                report.getDate(),
+                report.getDoctorName()
+            });
+        }
+
+        reportTable = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(reportTable);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Back button
+        backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close current window
+                JOptionPane.showMessageDialog(null, "Back to Dashboard");
+            }
+        });
+        add(backButton, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        ArrayList<MedicalReport> sampleReports = new ArrayList<MedicalReport>();
+        sampleReports.add(new MedicalReport(101, "John Doe", "Blood Test", "2025-05-10", "Dr. Smith"));
+        sampleReports.add(new MedicalReport(102, "Alice Brown", "X-Ray", "2025-05-11", "Dr. Lee"));
+        sampleReports.add(new MedicalReport(103, "Mark Wilson", "MRI", "2025-05-12", "Dr. Taylor"));
+
+        new ViewMedicalReports(sampleReports);
+    }
+}
+
+// Supporting class
+class MedicalReport {
+    private int reportId;
+    private String patientName;
+    private String reportType;
+    private String date;
+    private String doctorName;
+
+    public MedicalReport(int reportId, String patientName, String reportType, String date, String doctorName) {
+        this.reportId = reportId;
+        this.patientName = patientName;
+        this.reportType = reportType;
+        this.date = date;
+        this.doctorName = doctorName;
+    }
+
+    public int getReportId() { return reportId; }
+    public String getPatientName() { return patientName; }
+    public String getReportType() { return reportType; }
+    public String getDate() { return date; }
+    public String getDoctorName() { return doctorName; }
+}
