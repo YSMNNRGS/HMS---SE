@@ -1,0 +1,83 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.ArrayList;
+
+public class ViewAppointment extends JFrame {
+
+    JTable appointmentTable;
+    JButton backButton;
+
+    public ViewAppointment(ArrayList<Appointment> appointments) {
+        setTitle("View Appointments");
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Title label at the top
+        JLabel titleLabel = new JLabel("Appointments", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Table Model
+        String[] columns = {"Appointment ID", "Patient Name", "Doctor Name", "Date", "Time"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+
+        // Fill table with data
+        for (Appointment a : appointments) {
+            model.addRow(new Object[]{
+                a.getId(), a.getPatientName(), a.getDoctorName(), a.getDate(), a.getTime()
+            });
+        }
+
+        // Table and scroll pane
+        appointmentTable = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(appointmentTable);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Back button
+        backButton = new JButton("Back");
+        backButton.addActionListener(e -> {
+            dispose(); // Close current window
+            JOptionPane.showMessageDialog(null, "Back to Dashboard");
+        });
+        add(backButton, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // Main method to run the GUI
+    public static void main(String[] args) {
+        ArrayList<Appointment> sampleAppointments = new ArrayList<>();
+        sampleAppointments.add(new Appointment(1, "John Doe", "Dr. Smith", "2025-05-15", "10:30 AM"));
+        sampleAppointments.add(new Appointment(2, "Alice Brown", "Dr. Lee", "2025-05-16", "11:00 AM"));
+        sampleAppointments.add(new Appointment(3, "Mark Wilson", "Dr. Taylor", "2025-05-17", "2:00 PM"));
+
+        new ViewAppointment(sampleAppointments);
+    }
+}
+
+// Appointment class
+class Appointment {
+    private int id;
+    private String patientName;
+    private String doctorName;
+    private String date;
+    private String time;
+
+    public Appointment(int id, String patientName, String doctorName, String date, String time) {
+        this.id = id;
+        this.patientName = patientName;
+        this.doctorName = doctorName;
+        this.date = date;
+        this.time = time;
+    }
+
+    public int getId() { return id; }
+    public String getPatientName() { return patientName; }
+    public String getDoctorName() { return doctorName; }
+    public String getDate() { return date; }
+   public String getTime() { return time; }
+
+}
