@@ -10,10 +10,10 @@ readme.md written by hooria ,
 manifest.mf written by hooria.
 
 
-Reception dashboard src (RECEPTION.java) by Toba Ayob
-index.html done by Toba Ayob
-register.html done by Toba Ayob
-update.html done by Toba Ayob
-notify.html done by Toba Ayob
+Reception dashboard src (RECEPTION.java) 
+index.html 
+register.html 
+update.html 
+notify.html , Done by Toba Ayob
 
 
